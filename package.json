@@ -7,6 +7,9 @@
   "keywords": [],
   "author": "Cyril Silverman",
   "license": "ISC",
+  "scripts": {
+    "start": "webpack-dev-server --hot --inline --content-base ."
+  },
   "babel": {
     "presets": [
       "stage-0",

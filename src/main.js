@@ -1,5 +1,5 @@
 import { Room, Block, EndPoint, Segment, Point } from './types';
-
+import { drawScene } from './drawScene';
 const { cos, sin, atan2, PI } = Math;
 
 // Prepare canvas
@@ -8,34 +8,6 @@ const ctx = canvas.getContext('2d');
 const xOffset = 0;
 const yOffset = 0;
 ctx.translate(xOffset, yOffset);
-
-const drawRoom = (ctx, {x, y, width, height}) => {
-  ctx.save();
-  ctx.strokeStyle = 'black';
-  ctx.strokeRect(x, y, width, height);
-  ctx.restore();
-};
-
-const drawBlock = (ctx, {x, y, r}) => {
-  ctx.save();
-  ctx.strokeStyle = 'black';
-  ctx.strokeRect(x - r, y - r, r*2, r*2);
-  ctx.restore();
-};
-
-const drawTriangles = (ctx, center, visibilityOutput) => {
-  for(var i = 0; i < visibilityOutput.length / 2; i += 1) {
-    let index = i * 2;
-    let p1 = visibilityOutput[index];
-    let p2 = visibilityOutput[index+1];
-    ctx.beginPath();
-    ctx.moveTo(center.x, center.y);
-    ctx.lineTo(p1.x, p1.y);
-    ctx.lineTo(p2.x, p2.y);
-    ctx.closePath()
-    ctx.stroke();
-  }
-}
 
 let segments = [];
 let endpoints = [];
@@ -256,7 +228,7 @@ setLightLocation(100, 100);
 sweep();
 
 requestAnimationFrame(function tick() {
-  render();
+  drawScene(ctx, room, center, blocks, visibilityOutput);
   requestAnimationFrame(tick);
 });
 
