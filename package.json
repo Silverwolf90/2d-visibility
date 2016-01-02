@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "Cyril Silverman",
-  "license": "ISC",
+  "license": "MIT",
   "babel": {
     "presets": [
       "stage-0",
