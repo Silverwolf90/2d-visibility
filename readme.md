@@ -1,4 +1,4 @@
-# 2D Visibility Algorithm
+# 2D Visibility Algorithm Demo
 
 This is a 2d visibility agolrithm described in [this article](http://www.redblobgames.com/articles/visibility/), ported by hand to JavaScript (ES2016) and refactored significantly to suit my taste better. I went for a more functional approach and renamed/reorganized some things, so it's not quite a 1-to-1 port.
 
