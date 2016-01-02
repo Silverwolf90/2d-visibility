@@ -20,12 +20,11 @@ export const Point =
   });
 
 export const EndPoint =
-  (x=0, y=0, begin=false, segment=null, angle=0, visualize=false) => ({
+  (x=0, y=0, beginsSegment=false, segment=null, angle=0) => ({
     ...Point(x, y),
-    begin,
+    beginsSegment,
     segment,
-    angle,
-    visualize
+    angle
   });
 
 export const Segment =
@@ -35,9 +34,7 @@ export const Segment =
     const segment = { p1, p2, d: 0 };
 
     p1.segment = segment;
-    p1.visualize = true;
     p2.segment = segment;
-    p2.visualize = false;
 
     return segment;
   };

@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "Cyril Silverman",
-  "license": "ISC",
   "scripts": {
     "start": "webpack-dev-server --hot --inline --content-base ."
   },
+  "keywords": [],
+  "author": "Cyril Silverman",
+  "license": "ISC",
   "babel": {
     "presets": [
       "stage-0",
@@ -20,6 +19,10 @@
     ]
   },
   "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-core": "^6.3.26",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
     "babel-preset-stage-2": "^6.3.13",

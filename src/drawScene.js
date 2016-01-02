@@ -16,10 +16,8 @@ const drawBlock =
 
 const drawTriangles =
   (ctx, center, visibilityOutput) => {
-    for(var i = 0; i < visibilityOutput.length / 2; i += 1) {
-      let index = i * 2;
-      let p1 = visibilityOutput[index];
-      let p2 = visibilityOutput[index+1];
+    for(var i = 0; i < visibilityOutput.length; i += 1) {
+      let [p1, p2] = visibilityOutput[i];
       ctx.beginPath();
       ctx.moveTo(center.x, center.y);
       ctx.lineTo(p1.x, p1.y);

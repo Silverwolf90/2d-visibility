@@ -42,34 +42,33 @@ export const calculateVisibility = (origin, endpoints, maxAngle=999) => {
 
   for(let pass = 0; pass < 2; pass += 1) {
     for (let i = 0; i < endpoints.length; i += 1) {
-      let p = endpoints[i];
-      let currentOld = !openSegments.length ? null : openSegments[0];
+      let endpoint = endpoints[i];
+      let openSegment = openSegments[0];
       
-      if (p.begin) {
+      if (endpoint.beginsSegment) {
         let index = 0
         let segment = openSegments[index];
-        while (segment && segmentInFrontOf(p.segment, segment, origin)) {
+        while (segment && segmentInFrontOf(endpoint.segment, segment, origin)) {
           index += 1;
           segment = openSegments[index]
         }
 
         if (!segment) {
-          openSegments.push(p.segment);
+          openSegments.push(endpoint.segment);
         } else {
-          openSegments.splice(index, 0, p.segment);
+          openSegments.splice(index, 0, endpoint.segment);
         }
       } else {
-        let index = openSegments.indexOf(p.segment)
+        let index = openSegments.indexOf(endpoint.segment)
         if (index > -1) openSegments.splice(index, 1);
       }
       
-      let currentNew = !openSegments.length ? null : openSegments[0];
-      if (currentOld !== currentNew) {
+      if (openSegment !== openSegments[0]) {
         if (pass === 1) {
-          let trianglePoints = getTrianglePoints(origin, beginAngle, p.angle, currentOld);
-          output = output.concat(trianglePoints)
+          let trianglePoints = getTrianglePoints(origin, beginAngle, endpoint.angle, openSegment);
+          output.push(trianglePoints);
         }
-        beginAngle = p.angle;
+        beginAngle = endpoint.angle;
       }
     }
   }
