@@ -23,7 +23,8 @@ const room = Room(0, 0, 700, 500);
 const walls = makeSegments([
   [20, 20, 20, 120],
   [20, 20, 100, 20],
-  [100, 20, 150, 100]
+  [100, 20, 150, 100],
+  [150, 100, 50, 100],
 ]);
 
 const blocks = makeBlocks([
