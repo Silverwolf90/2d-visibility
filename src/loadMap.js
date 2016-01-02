@@ -2,6 +2,10 @@ import { Segment } from './types';
 
 const { atan2, PI: π } = Math;
 
+const flatMap =
+  (cb, array) =>
+    array.reduce((flatArray, item) => flatArray.concat(cb(item)), []);
+
 const getCorners = ({x, y, width, height}) => ({
   nw: [x, y],
   sw: [x, y + height],
@@ -17,6 +21,9 @@ const segmentsFromCorners =
     Segment(...sw, ...se)
   ]);
 
+const rectangleToSegments =
+  (rectangle) => segmentsFromCorners(getCorners(rectangle)); 
+
 const calculateEndPointAngles = (lightSource, segment) => {
   const { x, y } = lightSource;
   const dx = 0.5 * (segment.p1.x + segment.p2.x) - x;
@@ -27,7 +34,7 @@ const calculateEndPointAngles = (lightSource, segment) => {
   segment.p2.angle = atan2(segment.p2.y - y, segment.p2.x - x);
 };
 
-const determinineSegmentBeginning = (segment) => {
+const setSegmentBeginning = (segment) => {
   let dAngle = segment.p2.angle - segment.p1.angle;
 
   if (dAngle <= -π) dAngle += 2 * π;
@@ -37,31 +44,27 @@ const determinineSegmentBeginning = (segment) => {
   segment.p2.beginsSegment = !segment.p1.beginsSegment;
 };
 
-const setupSegments = (lightSource, segments) => {
+const processSegments = (lightSource, segments) => {
   for (let i = 0; i < segments.length; i += 1) {
     let segment = segments[i];
     calculateEndPointAngles(lightSource, segment);
-    determinineSegmentBeginning(segment);
+    setSegmentBeginning(segment);
   }
+
+  return segments;
 };
 
+const getSegmentEndPoints =
+  (segment) => [segment.p1, segment.p2];
+
 export const loadMap = (room, blocks, walls, lightSource) => {
-  let segments = segmentsFromCorners(getCorners(room));
-  
-  for(let i = 0; i < blocks.length; i += 1) {
-    segments = segments.concat(segmentsFromCorners(getCorners(blocks[i])));
-  }
+  const segments = processSegments(lightSource, [
+    ...rectangleToSegments(room),
+    ...flatMap(rectangleToSegments, blocks),
+    ...walls
+  ]);
 
-  for(let i = 0; i < walls.length; i += 1) {
-    segments.push(walls[i]);
-  }
-
-  setupSegments(lightSource, segments);
-
-  const concatSegmentEndPoints =
-    (endpoints, segment) => endpoints.concat([segment.p1, segment.p2])
-
-  const endpoints = segments.reduce(concatSegmentEndPoints, []);
+  const endpoints = flatMap(getSegmentEndPoints, segments);
 
   return endpoints;
 };
