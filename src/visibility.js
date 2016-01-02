@@ -8,8 +8,8 @@ const { cos, sin } = Math;
 const getTrianglePoints = (origin, angle1, angle2, segment) => {
   const p1 = origin;
   const p2 = Point(origin.x + cos(angle1), origin.y + sin(angle1));
-  const p3 = Point(0.0, 0.0);
-  const p4 = Point(0.0, 0.0);
+  const p3 = Point(0, 0);
+  const p4 = Point(0, 0);
 
   if (segment) {
     p3.x = segment.p1.x;
@@ -33,10 +33,10 @@ const getTrianglePoints = (origin, angle1, angle2, segment) => {
   return [pBegin, pEnd];
 };
 
-export const calculateVisibility = (origin, endpoints, maxAngle=999) => {
+export const calculateVisibility = (origin, endpoints) => {
   let openSegments = [];
   let output = [];
-  let beginAngle = 0.0;
+  let beginAngle = 0;
 
   endpoints.sort(endpointCompare);
 

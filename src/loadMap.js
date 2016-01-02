@@ -1,6 +1,6 @@
 import { Segment } from './types';
 
-const { atan2, PI } = Math;
+const { atan2, PI: π } = Math;
 
 const getCorners = ({x, y, width, height}) => ({
   nw: [x, y],
@@ -30,8 +30,8 @@ const calculateEndPointAngles = (lightSource, segment) => {
 const determinineSegmentBeginning = (segment) => {
   let dAngle = segment.p2.angle - segment.p1.angle;
 
-  if (dAngle <= -PI) dAngle += 2 * PI;
-  if (dAngle >   PI) dAngle -= 2 * PI;
+  if (dAngle <= -π) dAngle += 2 * π;
+  if (dAngle >   π) dAngle -= 2 * π;
 
   segment.p1.beginsSegment = dAngle > 0;
   segment.p2.beginsSegment = !segment.p1.beginsSegment;
