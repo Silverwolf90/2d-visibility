@@ -58,9 +58,10 @@ export const loadMap = (room, blocks, walls, lightSource) => {
 
   setupSegments(lightSource, segments);
 
-  const endpoints = segments
-    .reduce((endpoints, segment) =>
-      endpoints.concat([segment.p1, segment.p2]), []);
+  const concatSegmentEndPoints =
+    (endpoints, segment) => endpoints.concat([segment.p1, segment.p2])
+
+  const endpoints = segments.reduce(concatSegmentEndPoints, []);
 
   return endpoints;
 };

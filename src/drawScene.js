@@ -35,7 +35,7 @@ const drawVisibilityTriangles =
   };
 
 export const drawScene =
-  (ctx, room, lightSource, blocks, walls, visibilityOutput) => {
+  (ctx, room, lightSource, blocks, walls, visibilityOutput, showAll) => {
     ctx.clearRect(-10000, -10000, 20000, 20000);
     drawRectangle(ctx, 'black', room);
     blocks.forEach(drawRectangle.bind(null, ctx, 'black'));
