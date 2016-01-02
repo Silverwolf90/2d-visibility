@@ -36,7 +36,7 @@ const run = (lightSource) => {
   const visibility = calculateVisibility(lightSource, endpoints);
 
   requestAnimationFrame(() =>
-    drawScene(ctx, room, lightSource, blocks, visibility));
+    drawScene(ctx, room, lightSource, blocks, walls, visibility));
 };
 
 canvas.addEventListener('mousemove', ({pageX, pageY}) => {
