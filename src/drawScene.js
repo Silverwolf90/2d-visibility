@@ -1,16 +1,8 @@
-const drawRoom =
+const drawRectangle =
   (ctx, {x, y, width, height}) => {
     ctx.save();
     ctx.strokeStyle = 'black';
     ctx.strokeRect(x, y, width, height);
-    ctx.restore();
-  };
-
-const drawBlock =
-  (ctx, {x, y, r}) => {
-    ctx.save();
-    ctx.strokeStyle = 'black';
-    ctx.strokeRect(x - r, y - r, r*2, r*2);
     ctx.restore();
   };
 
@@ -30,8 +22,8 @@ const drawTriangles =
 export const drawScene =
   (ctx, room, center, blocks, visibilityOutput) => {
     ctx.clearRect(-10000, -10000, 20000, 20000);
-    drawRoom(ctx, room);
-    blocks.forEach(drawBlock.bind(null, ctx));
+    drawRectangle(ctx, room);
+    blocks.forEach(drawRectangle.bind(null, ctx));
     drawTriangles(ctx, center, visibilityOutput);
     ctx.fillRect(center.x, center.y, 3, 3);
   };

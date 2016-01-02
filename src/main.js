@@ -18,8 +18,7 @@ const yOffset = 0.5;
 ctx.translate(xOffset, yOffset);
 
 // Setup scene
-const roomSize = 500;
-const room = Room(0, 0, roomSize, roomSize);
+const room = Room(0, 0, 700, 500);
 
 const walls = makeSegments([
   [20, 20, 20, 120],
@@ -27,13 +26,13 @@ const walls = makeSegments([
 ]);
 
 const blocks = makeBlocks([
-  [ 50, 150, 10],
-  [150, 150, 20],
-  [400, 400, 20]
+  [ 50, 150, 20, 20],
+  [150, 150, 40, 40],
+  [400, 400, 40, 40]
 ]);
 
 const run = (lightSource) => {
-  const endpoints = loadMap(roomSize, 0, blocks, walls, lightSource);  
+  const endpoints = loadMap(room, blocks, walls, lightSource);  
   const visibility = calculateVisibility(lightSource, endpoints);
 
   requestAnimationFrame(() =>

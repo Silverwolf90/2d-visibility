@@ -1,4 +1,4 @@
-export const Room =
+export const Rectangle =
   (x, y, width, height) => ({
     x, 
     y, 
@@ -6,12 +6,8 @@ export const Room =
     height
   });
 
-export const Block = 
-  (x, y, r) => ({
-    x,
-    y,
-    r
-  });
+export const Block = Rectangle
+export const Room = Rectangle;
 
 export const Point = 
   (x=0, y=0) => ({

@@ -2,25 +2,20 @@ import { Segment } from './types';
 
 const { atan2, PI } = Math;
 
-const mapEdgesToSegments = (mapSize, margin) => {
-  return [
-    Segment(margin, margin, margin, mapSize-margin),
-    Segment(margin, mapSize-margin, mapSize-margin, mapSize-margin),
-    Segment(mapSize-margin, mapSize-margin, mapSize-margin, margin),
-    Segment(mapSize-margin, margin, margin, margin)
-  ];
-};
+const getCorners = ({x, y, width, height}) => ({
+  nw: [x, y],
+  sw: [x, y + height],
+  ne: [x + width, y],
+  se: [x + width, y + height]
+});
 
-const blockToSegments = (block) => {
-  const { x, y, r } = block;
-
-  return [
-    Segment(x-r, y-r, x-r, y+r),
-    Segment(x-r, y+r, x+r, y+r),
-    Segment(x+r, y+r, x+r, y-r),
-    Segment(x+r, y-r, x-r, y-r)
-  ];
-};
+const segmentsFromCorners =
+  ({ nw, sw, ne, se }) => ([
+    Segment(...nw, ...ne),
+    Segment(...nw, ...sw),
+    Segment(...ne, ...se),
+    Segment(...sw, ...se)
+  ]);
 
 const calculateEndPointAngles = (lightSource, segment) => {
   const { x, y } = lightSource;
@@ -50,11 +45,11 @@ const setupSegments = (lightSource, segments) => {
   }
 };
 
-export const loadMap = (size, margin, blocks, walls, lightSource) => {
-  let segments = mapEdgesToSegments(size, margin);
+export const loadMap = (room, blocks, walls, lightSource) => {
+  let segments = segmentsFromCorners(getCorners(room));
   
   for(let i = 0; i < blocks.length; i += 1) {
-    segments = segments.concat(blockToSegments(blocks[i]));
+    segments = segments.concat(segmentsFromCorners(getCorners(blocks[i])));
   }
 
   for(let i = 0; i < walls.length; i += 1) {
