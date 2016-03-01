@@ -10,13 +10,13 @@ export const Block = Rectangle
 export const Room = Rectangle;
 
 export const Point = 
-  (x=0, y=0) => ({
+  (x, y) => ({
     x,
     y
   });
 
 export const EndPoint =
-  (x=0, y=0, beginsSegment=false, segment=null, angle=0) => ({
+  (x, y, beginsSegment, segment, angle) => ({
     ...Point(x, y),
     beginsSegment,
     segment,
